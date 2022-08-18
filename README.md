@@ -1,14 +1,25 @@
-# `xtdfet`
-Dynamic Fixed Effects Regression with Time Interactions
+# `xtdfet` - Dynamic Fixed Effects Regression with Time Interactions
 
-# Description 
+**Table of Contents**
+1. [Description](#1-description)
+2. [Syntax](#2-syntax)
+3. [Options](#3-options)
+4. [Estimating Short-Run and Long-Run Effects with Time Interactions](#4-estimating-short-run-and-long-run-effects-with-time-interactions)
+5. [Examples](#5-examples)
+    1. [Specifying the Lag Structure](#51-specifying-the-lag-structure)  
+    2. [Output](#52-output)
+    3. [Graphing Results](#53-graphing-results)
+6. [Install](#6-install) 
+7. [Acknowledgements](#7-acknowledgements)
+8. [Author](#8-author)
 
+# 1. Description 
 
-# Syntax
+# 2. Syntax
 
     syntax varlist(ts) [if] [in] [,LAgs(string) Int(string) INTLags(string) Timetest NOtable LIne(string) Bar(string) EXcel(string)]
 
-## Options
+# 3. Options
 
 `LAgs(string)` specifies the number of lags for each variable in varlist. If no lags are wanted, specify 0. At least one lag of the dependent variable is required. This is a required option. 
 
@@ -26,15 +37,19 @@ Dynamic Fixed Effects Regression with Time Interactions
 
 `EXcel(string)` saves the main effects, short-run effects, and long-run effects in an excel spreadsheet. Each set of results are given their own sheet. 
 
-# Example 
+# 4. Estimating Short-Run and Long-Run Effects with Time Interactions
+
+# 5. Examples 
 
 A U.S. state-level dataset consisting of annual observations of fossil fuel energy consumption per capita, average personal income, and the % of energy consumption from renewable energyfrom 1995 to 2018 can be downloaded here. The examples below are based on this dataset, with the variable of interest being the % of energy consumption from renewable energy (lnrenper). 
+
+## 5.1 Specifying the Lag Structure
 
 A user can specify a lagged dependent variable (LDV) model as follows: 
 
      xtdfet lnffpc lny, lags(1 0) int(lnrenper) intlags(0)
 
-Users can estimate a more general ARDL(*p*,*q*) model by using a forward slash and specifying the minimum and maximum number of lags wanted (e.g., 1/3). As an example, the commonly ARDL(1,1) is obtained by specifying:  
+Users can estimate a more general ARDL(*p*,*q*) model by using a forward slash and specifying the minimum and maximum number of lags wanted (e.g., 1/3). As an example, the commonly used ARDL(1,1) is obtained by specifying:  
 
      xtdfet lnffpc lny, lags(1 0/1) int(lnrenper) intlags(0/1)
 
@@ -45,17 +60,23 @@ The lags for each variable can be different too:
 If a lag of the independent variable is wanted instead of the contemporaneous effect then the user can omit zero from the model: 
 
      xtdfet lnffpc lny, lags(1/2 1) int(lnrenper) intlags(0)
+   
+## 5.2 Output
 
-# Install 
+Without any additional options specified, tables of the main effects, short-run, and long-run effects are displayed. The results in the main effects table appear as they would if the user used `xtreg, fe` and used stata's factor notation. 
+
+## 5.3 Graphing Results
+
+# 6. Install 
 
 
     
 
-# Acknowledgements
+# 7. Acknowledgements
 
 Special thanks to Xiaorui Huang for inspiring me to write this program.  
 
-# Author
+# 8. Author
 
 [**Ryan P. Thombs**](ryanthombs.com)  
 **(Boston College)**  
