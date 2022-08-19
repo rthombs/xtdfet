@@ -109,6 +109,21 @@ Visual results of the short-run and long-run effects are obtained by specifying 
     <em>Figure 2. Long-Run Effects.</em>
 </p>
 
+Here, the two line graphs look similar except for the y-axis. That is because the long-run effects are a simple rescaling of the contemporaneous, short-run effect in a LDV model. We can also graph the short-run and long-run effects with a bar graph: 
+
+     xtdfet lnffpc lny, lags(1 0) int(lnrenper) intlags(0/1) b(example)
+     
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/40503845/185670498-39715b45-5123-4f80-b37f-8c5f78e23a1d.jpg"/>
+    <br>
+    <em>Figure 1. Short-Run Effects.</em>
+</p>
+
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/40503845/185670555-82fcd18a-bfb8-415d-9707-7d77af2c4d2d.jpg"/>
+    <br>
+    <em>Figure 2. Long-Run Effects.</em>
+</p>
 
 # 6. Install 
 
