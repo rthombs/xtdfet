@@ -19,6 +19,8 @@
 
 # 1. Description 
 
+Two-way fixed effects regression with variables interacted with time are commonly used to test whether effects change over time. Including the correct number of lags in the model is important to estimating unbaised coefficients, but calculating short-run and long-run interaction effects can be difficult and coding errors are easy to make. `xtdfet` simplifies this process for users by automatically calculating the short-run and long-run effects for each time point in the analysis. Users can also graph the results with the `LIne` and `Bar` options. Moreover, the results can be exported to an excel spreadsheet with the `EXcel` option. This program should be used when the Nickell bias is relatively small, and the use of a heterogeneous panel estimator is not appropriate because the T is not large enough (e.g., 15-30 periods of data). 
+
 # 2. Syntax
 
     syntax varlist(ts) [if] [in] [,LAgs(string) Int(string) INTLags(string) Timetest NOtable LIne(string) Bar(string) EXcel(string)]
@@ -154,6 +156,14 @@ Here, the two line graphs look similar except for the y-axis. That is because th
 In addition to determining whether the effects are statistically different than zero, users are often interested whether each period's effect is statistically different from the first period effect. Users can determine this by specifying the `timetest` option:
 
      xtdfet lnffpc lny, lags(1 0) int(lnrenper) intlags(0) timetest
+
+This will produce a table of the Wald tests (H0: Coefficient = First Period Effect): 
+
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/40503845/185691571-1de6a275-032e-43a7-9ec8-e9e558c6d407.jpg"/>
+    <br>
+    <em>Figure 6. Wald Tests</em>
+</p>
 
 # 5.5. Estimating Effects for a Subsample of Time
 
