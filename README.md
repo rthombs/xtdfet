@@ -9,6 +9,8 @@
     1. [Specifying the Lag Structure](#51-specifying-the-lag-structure)  
     2. [Output](#52-output)
     3. [Graphing Results](#53-graphing-results)
+    4. [Testing Effects Over Time](#54-testing-effects-over-time)
+    5. [Estimating Effects for a Subsample of Time](#55-estimating-effects-for-a-subsample-of-time)
 6. [Install](#6-install) 
 7. [Acknowledgements](#7-acknowledgements)
 8. [Author](#8-author)
@@ -124,6 +126,10 @@ Here, the two line graphs look similar except for the y-axis. That is because th
     <br>
     <em>Figure 2. Long-Run Effects.</em>
 </p>
+
+# 5.4. Testing Effects Over Time
+
+# 5.5. Estimating Effects for a Subsample of Time
 
 # 6. Install 
 
