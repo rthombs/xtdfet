@@ -19,7 +19,7 @@
 
 # 1. Description 
 
-Two-way fixed effects regression with variables interacted with time are commonly used to test whether effects change over time. Including the correct number of lags in the model is important to estimating unbaised coefficients, but calculating short-run and long-run interaction effects can be difficult and coding errors are easy to make. `xtdfet` simplifies this process for users by automatically calculating the short-run and long-run effects for each time point in the analysis. Users can also graph the results with the `LIne` and `Bar` options. Moreover, the results can be exported to an excel spreadsheet with the `EXcel` option. This program should be used when the Nickell bias is relatively small, and the use of a heterogeneous panel estimator is not appropriate because the T is not large enough (e.g., 15-30 periods of data). 
+Two-way fixed effects regression with variables interacted with time are commonly used to test whether effects change over time. Including the correct number of lags in the model is important for obtaining unbiased coefficients, but calculating short-run and long-run interaction effects can be difficult and coding errors are easy to make. `xtdfet` simplifies this process for users by automatically calculating the short-run and long-run effects for each time point in the analysis. Users can also graph the results with the `LIne` and `Bar` options. Moreover, the results can be exported to an excel spreadsheet with the `EXcel` option. This program should be used when the Nickell bias is relatively small, and the use of a heterogeneous panel estimator is not appropriate because the T is not large enough (e.g., 15-30 periods of data). 
 
 # 2. Syntax
 
@@ -61,7 +61,7 @@ For 1991 it is:
 
 and so on. 
 
-The long-run effects are estimated by summing the coefficients of the moderating variable by year and dividing it 1-the sum of coefficients on the lag(s) of the dependent variable. For example, for an lagged dependent variable (LDV) model, the long-run effect is calculated as: 
+The long-run effects are estimated by summing the coefficients of the variable of interest by year and dividing it by 1-the sum of the coefficients on the lag(s) of the dependent variable. For example, for a lagged dependent variable (LDV) model, the long-run effect is calculated as: 
 
      (_b[var] + _b[var*time_1990])/(1 - _b[L.DV])
      
@@ -75,7 +75,7 @@ This can be extended to higher order lags, e.g., an ARDL(2,2):
 
 # 5. Examples 
 
-A U.S. state-level dataset consisting of annual observations of fossil fuel energy consumption per capita, average personal income, and the % of energy consumption from renewable energyfrom 1995 to 2018 can be downloaded here. The examples below are based on this dataset, with the variable of interest being the % of energy consumption from renewable energy (lnrenper). 
+A U.S. state-level dataset consisting of annual observations of fossil fuel energy consumption per capita, average personal income, and the % of energy consumption from renewable energy from 1995 to 2018 can be downloaded here. The examples below are based on this dataset, with the variable of interest being the % of energy consumption from renewable energy (lnrenper). 
 
 ## 5.1 Specifying the Lag Structure
 
@@ -97,7 +97,7 @@ If a lag of the independent variable is wanted instead of the contemporaneous ef
    
 ## 5.2 Output
 
-Without any additional options specified, tables of the main effects, short-run, and long-run effects are displayed. The results in the main effects table appear as they would if the user used `xtreg, fe` and used stata's factor notation. The short-run effects are calculated and displayed immediately after the main results: 
+Without any additional options specified, tables of the main effects, short-run, and long-run effects are displayed. The results in the main effects table appear as they would if the user used `xtreg, fe` with stata's factor notation. The short-run effects are calculated and displayed immediately after the main results: 
 
 <p align="center">
  <img src="https://user-images.githubusercontent.com/40503845/185687751-93ed5a42-b152-4c83-9c1d-77ed9bdf0e2a.jpg"/>
@@ -113,7 +113,7 @@ The long-run effects are then displayed immediately after the short-run effects:
     <em>Figure 2. Long-Run Effects Display</em>
 </p>
 
-The main effects, short-run effects, and long-run effects can be exported to `EXcel` option:
+The main effects, short-run effects, and long-run effects can be exported to excel with the `EXcel` option:
 
      xtdfet lnffpc lny, lags(1 0/1) int(lnrenper) intlags(0/1) excel(results)
 
@@ -153,7 +153,7 @@ Here, the two line graphs look similar except for the y-axis. That is because th
 
 # 5.4. Testing Whether Effects Change Over Time
 
-In addition to determining whether the effects are statistically different than zero, users are often interested whether each period's effect is statistically different from the first period effect. Users can determine this by specifying the `timetest` option:
+In addition to determining whether the effects are statistically different than zero, users are often interested in whether each period's effect is statistically different from the first period effect. Users can determine this by specifying the `timetest` option:
 
      xtdfet lnffpc lny, lags(1 0) int(lnrenper) intlags(0) timetest
 
@@ -170,7 +170,7 @@ This will produce a table of the Wald tests (H0: Coefficient = First Period Effe
 The time interactions are based on how the data are `xtset`. If the user's data sample extends from 1970 to 2010 and they want to examine only the 1970 to 1990 period then they can do the following: 
 
      preserve 
-     drop if year>1991
+     drop if year>1990
      
      xtdfet ...
      
