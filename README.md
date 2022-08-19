@@ -1,5 +1,7 @@
 # `xtdfet` - Dynamic Fixed Effects Regression with Time Interactions
 
+### Currently Under Construction. Program will be released shortly (Updated 8/19/2022).
+
 **Table of Contents**
 1. [Description](#1-description)
 2. [Syntax](#2-syntax)
@@ -9,7 +11,7 @@
     1. [Specifying the Lag Structure](#51-specifying-the-lag-structure)  
     2. [Output](#52-output)
     3. [Graphing Results](#53-graphing-results)
-    4. [Testing Effects Over Time](#54-testing-effects-over-time)
+    4. [Testing Whether Effects Change Over Time](#54-testing-whether-effects-change-over-time)
     5. [Estimating Effects for a Subsample of Time](#55-estimating-effects-for-a-subsample-of-time)
 6. [Install](#6-install) 
 7. [Acknowledgements](#7-acknowledgements)
@@ -91,7 +93,25 @@ If a lag of the independent variable is wanted instead of the contemporaneous ef
    
 ## 5.2 Output
 
-Without any additional options specified, tables of the main effects, short-run, and long-run effects are displayed. The results in the main effects table appear as they would if the user used `xtreg, fe` and used stata's factor notation. 
+Without any additional options specified, tables of the main effects, short-run, and long-run effects are displayed. The results in the main effects table appear as they would if the user used `xtreg, fe` and used stata's factor notation. The short-run effects are calculated and displayed immediately after the main results: 
+
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/40503845/185687751-93ed5a42-b152-4c83-9c1d-77ed9bdf0e2a.jpg"/>
+    <br>
+    <em>Figure 1. Short-Run Effects Display</em>
+</p>
+
+The long-run effects are then displayed immediately after the short-run effects: 
+
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/40503845/185688328-b744f207-4646-4e89-bc20-c95105bf5811.jpg"/>
+    <br>
+    <em>Figure 2. Long-Run Effects Display</em>
+</p>
+
+The main effects, short-run effects, and long-run effects can be exported to `EXcel` option:
+
+     xtdfet lnffpc lny, lags(1 0/1) int(lnrenper) intlags(0/1) excel(results)
 
 ## 5.3 Graphing Results
 
@@ -102,13 +122,13 @@ Visual results of the short-run and long-run effects are obtained by specifying 
 <p align="center">
  <img src="https://user-images.githubusercontent.com/40503845/185658638-aea649c5-fc05-47a0-8857-16c42ea33ad2.jpg"/>
     <br>
-    <em>Figure 1. Short-Run Effects.</em>
+    <em>Figure 3. Short-Run Effects</em>
 </p>
 
 <p align="center">
  <img src="https://user-images.githubusercontent.com/40503845/185658796-1463aa86-0dda-45e9-98e9-5f44107cf654.jpg"/>
     <br>
-    <em>Figure 2. Long-Run Effects.</em>
+    <em>Figure 4. Long-Run Effects</em>
 </p>
 
 Here, the two line graphs look similar except for the y-axis. That is because the long-run effects are a simple rescaling of the contemporaneous, short-run effect in a LDV model. We can also graph the short-run and long-run effects with a bar graph: 
@@ -118,22 +138,35 @@ Here, the two line graphs look similar except for the y-axis. That is because th
 <p align="center">
  <img src="https://user-images.githubusercontent.com/40503845/185670498-39715b45-5123-4f80-b37f-8c5f78e23a1d.jpg"/>
     <br>
-    <em>Figure 1. Short-Run Effects.</em>
+    <em>Figure 5. Short-Run Effects</em>
 </p>
 
 <p align="center">
  <img src="https://user-images.githubusercontent.com/40503845/185670555-82fcd18a-bfb8-415d-9707-7d77af2c4d2d.jpg"/>
     <br>
-    <em>Figure 2. Long-Run Effects.</em>
+    <em>Figure 6. Long-Run Effects</em>
 </p>
 
-# 5.4. Testing Effects Over Time
+# 5.4. Testing Whether Effects Change Over Time
+
+In addition to determining whether the effects are statistically different than zero, users are often interested whether each period's effect is statistically different from the first period effect. Users can determine this by specifying the `timetest` option:
+
+     xtdfet lnffpc lny, lags(1 0) int(lnrenper) intlags(0) timetest
 
 # 5.5. Estimating Effects for a Subsample of Time
 
+The time interactions are based on how the data are `xtset`. If the user's data sample extends from 1970 to 2010 and they want to examine only the 1970 to 1990 period then they can do the following: 
+
+     preserve 
+     drop if year>1991
+     
+     xtdfet ...
+     
+     restore 
+
 # 6. Install 
 
-
+Email me at [thombs@bc.edu](mailto:thombs@bc.edu) for the current version. A public version of the program will be made available shortly. 
     
 
 # 7. Acknowledgements
