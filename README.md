@@ -41,6 +41,8 @@
 
 `EXcel(string)` saves the main effects, short-run effects, and long-run effects in an excel spreadsheet. Each set of results are given their own sheet. 
 
+**Note**: Robust standard errors are automatically used. 
+
 # 4. Estimating Short-Run and Long-Run Effects with Time Interactions
 
 The short-run effect for each year is calculated as:
