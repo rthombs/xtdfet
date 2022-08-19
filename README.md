@@ -39,6 +39,32 @@
 
 # 4. Estimating Short-Run and Long-Run Effects with Time Interactions
 
+The short-run effect for each year is calculated as:
+
+     _b[var] + _b[var*time_#] 
+     
+As an example, if the user has annual data from 1990 to 2015, then the short-run effect for 1990 is: 
+ 
+     _b[var] + _b[var*time_1990] 
+
+For 1991 it is:
+
+     _b[var] + _b[var*time_1991] 
+
+and so on. 
+
+The long-run effects are estimated by summing the coefficients of the moderating variable by year and dividing it 1-the sum of coefficients on the lag(s) of the dependent variable. For example, for an lagged dependent variable (LDV) model, the long-run effect is calculated as: 
+
+     (_b[var] + _b[var*time_1990])/(1 - _b[L.DV])
+     
+An ARDL(1,1), which includes one lag of the dependent and independent variables in the model is calculated as: 
+
+     (_b[var] + _b[var*time_1990] + _b[L.var] + _b[L.var*time_1990])/(1 - _b[L.DV])
+
+This can be extended to higher order lags, e.g., an ARDL(2,2): 
+
+     (_b[var] + _b[var*time_1990] + _b[L.var] + _b[L.var*time_1990] + _b[L2.var] + _b[L2.var*time_1990])/(1 - _b[L.DV] - _b[L2.DV])
+
 # 5. Examples 
 
 A U.S. state-level dataset consisting of annual observations of fossil fuel energy consumption per capita, average personal income, and the % of energy consumption from renewable energyfrom 1995 to 2018 can be downloaded here. The examples below are based on this dataset, with the variable of interest being the % of energy consumption from renewable energy (lnrenper). 
@@ -66,6 +92,23 @@ If a lag of the independent variable is wanted instead of the contemporaneous ef
 Without any additional options specified, tables of the main effects, short-run, and long-run effects are displayed. The results in the main effects table appear as they would if the user used `xtreg, fe` and used stata's factor notation. 
 
 ## 5.3 Graphing Results
+
+Visual results of the short-run and long-run effects are obtained by specifying the `LIne` or `Bar` options. The following code will produce a line graph that will save the short-run effects graph as "example_sr" and the long-run effects graph as "example_lr": 
+
+     xtdfet lnffpc lny, lags(1 0) int(lnrenper) intlags(0) li(example)
+
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/40503845/185658638-aea649c5-fc05-47a0-8857-16c42ea33ad2.jpg"/>
+    <br>
+    <em>Figure 1. Short-Run Effects.</em>
+</p>
+
+<p align="center">
+ <img src="https://user-images.githubusercontent.com/40503845/185658796-1463aa86-0dda-45e9-98e9-5f44107cf654.jpg"/>
+    <br>
+    <em>Figure 2. Long-Run Effects.</em>
+</p>
+
 
 # 6. Install 
 
