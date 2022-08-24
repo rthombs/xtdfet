@@ -1,6 +1,6 @@
 # `xtdfet` - Dynamic Fixed Effects Regression with Time Interactions
 
-### Currently Under Construction. Program will be released shortly (Updated 8/19/2022).
+### Currently Under Construction. Program will be released shortly (Updated 8/24/2022).
 
 **Table of Contents**
 1. [Description](#1-description)
@@ -29,7 +29,7 @@ Two-way fixed effects regression with variables interacted with time are commonl
 
 `LAgs(string)` specifies the number of lags for each variable in varlist. If no lags are wanted, specify 0. At least one lag of the dependent variable is required. This is a required option. 
 
-`Int(string)` specifies the variable to interact with time. This is a required option. 
+`Int(string)` specifies the variable to interact with time. This is a required option. **This variable should not be included in the `varlist`**. 
 
 `INTLags(string)` specifies the number of lags for the variable in `int`. If no lags are wanted, specify 0. This is a required option. 
 
@@ -47,31 +47,31 @@ Two-way fixed effects regression with variables interacted with time are commonl
 
 # 4. Estimating Short-Run and Long-Run Effects with Time Interactions
 
-The short-run effect for each year is calculated as:
+Assuming we estimate a lagged dependent variable (LDV) model, the short-run effect for each year is calculated as:
 
      _b[var] + _b[var*time_#] 
      
-As an example, if the user has annual data from 1990 to 2015, then the short-run effect for 1990 is: 
+As an example, if the user has annual data from 1990 to 2015, then the short-run effect for 1991 is the estimated main effect (1990 is dropped because of the lag): 
  
-     _b[var] + _b[var*time_1990] 
+     _b[var] 
 
-For 1991 it is:
+For 1992 it is:
 
-     _b[var] + _b[var*time_1991] 
+     _b[var] + _b[var*time_1992] 
 
 and so on. 
 
-The long-run effects are estimated by summing the coefficients of the variable of interest by year and dividing it by 1-the sum of the coefficients on the lag(s) of the dependent variable. For example, for a lagged dependent variable (LDV) model, the long-run effect is calculated as: 
+The long-run effects are estimated by summing the coefficients of the variable of interest by year and dividing it by 1-the sum of the coefficients on the lag(s) of the dependent variable. For example, the long-run effect in a LDV model is calculated as: 
 
-     (_b[var] + _b[var*time_1990])/(1 - _b[L.DV])
+     (_b[var] + _b[var*time_1992])/(1 - _b[L.DV])
      
-An ARDL(1,1), which includes one lag of the dependent and independent variables in the model is calculated as: 
+An ARDL(1,1), which includes one lag of the dependent and independent variables in the model, is calculated as: 
 
-     (_b[var] + _b[var*time_1990] + _b[L.var] + _b[L.var*time_1990])/(1 - _b[L.DV])
+     (_b[var] + _b[var*time_1992] + _b[L.var] + _b[L.var*time_1992])/(1 - _b[L.DV])
 
 This can be extended to higher order lags, e.g., an ARDL(2,2): 
 
-     (_b[var] + _b[var*time_1990] + _b[L.var] + _b[L.var*time_1990] + _b[L2.var] + _b[L2.var*time_1990])/(1 - _b[L.DV] - _b[L2.DV])
+     (_b[var] + _b[var*time_1992] + _b[L.var] + _b[L.var*time_1992] + _b[L2.var] + _b[L2.var*time_1992])/(1 - _b[L.DV] - _b[L2.DV])
 
 # 5. Examples 
 
@@ -135,7 +135,7 @@ Visual results of the short-run and long-run effects are obtained by specifying 
     <em>Figure 4. Long-Run Effects</em>
 </p>
 
-Here, the two line graphs look similar except for the y-axis. That is because the long-run effects are a simple rescaling of the contemporaneous, short-run effect in a LDV model. We can also graph the short-run and long-run effects with a bar graph: 
+Here, the two line graphs look similar except for the y-axis. That is because the long-run effects are a simple rescaling of the contemporaneous (short-run) effect in a LDV model. We can also graph the short-run and long-run effects with a bar graph: 
 
      xtdfet lnffpc lny, lags(1 0) int(lnrenper) intlags(0/1) b(example)
      
@@ -153,7 +153,7 @@ Here, the two line graphs look similar except for the y-axis. That is because th
 
 # 5.4. Testing Whether Effects Change Over Time
 
-In addition to determining whether the effects are statistically different than zero, users are often interested in whether each period's effect is statistically different from the first period effect. Users can determine this by specifying the `timetest` option:
+In addition to determining whether the effects are statistically different than zero, users are often interested in whether each period's effect is statistically different from the first period. Users can determine this by specifying the `timetest` option:
 
      xtdfet lnffpc lny, lags(1 0) int(lnrenper) intlags(0) timetest
 
