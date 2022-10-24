@@ -1,6 +1,6 @@
 # `xtdfet` - Dynamic Fixed Effects Regression with Time Interactions
 
-### Currently Under Construction. Program will be released shortly (Updated 8/24/2022).
+### Currently Under Construction. Program will be released shortly (Updated 10/24/2022).
 
 **Table of Contents**
 1. [Description](#1-description)
